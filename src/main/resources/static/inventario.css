@@ -2,12 +2,11 @@
   background-color: white;
   width: 65%;
   height: 100%;
-  margin: 1rem auto 4rem auto;
   border-radius: 10px;
   font-family: var(--tb-ft-family);
   padding-top: 2rem;
   padding-bottom: 3rem;
-  margin-top: 5rem;
+  margin: 5rem auto 4rem;
 }
 
 .input {
