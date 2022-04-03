@@ -34,5 +34,6 @@ public class RoutesController {
     public String getProvidersPage() {
         return "proveedores";
     }
+    
 }
 

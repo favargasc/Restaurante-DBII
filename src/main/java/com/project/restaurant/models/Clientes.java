@@ -2,6 +2,7 @@ package com.project.restaurant.models;
 
 import java.util.Arrays;
 
+
 public class Clientes {
     int clienteId;
     String nombre;
@@ -13,6 +14,12 @@ public class Clientes {
         this.nombre = nombre;
         this.telefono = telefono;
         this.direcciones = direcciones;
+    }
+
+    public Clientes(int clienteId, String nombre, String telefono) {
+        this.clienteId = clienteId;
+        this.nombre = nombre;
+        this.telefono = telefono;
     }
 
     public int getClienteId() {
