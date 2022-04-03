@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/clientes")
 public class ClientController {
 
+    // Queries
     private static final String getQuery = "SELECT * FROM clientes;";
     private static final String findQuery = "SELECT clienteId, nombre, telefono FROM clientes WHERE clienteId = (?);";
     private static final String updateQuery = "";
     private static final String deleteQuery = "";
 
+    // Obtiene todos los clientes registrados en la base de datos
     @GetMapping
     public String getAllClientes() {
 
@@ -49,7 +51,7 @@ public class ClientController {
         return null;
     }
 
-
+    // Obtiene un cliente de la base de datos por medio del id
     @GetMapping("/{id}")
     public Optional<Clientes> findById(Integer id) {
 
@@ -86,7 +88,7 @@ public class ClientController {
         return Optional.empty();
     }
 
-
+    // Elimina un cliente de la base de datos por medio del id
     public void delete(Integer id) {
         try {
 
@@ -112,7 +114,7 @@ public class ClientController {
     }
 
 
-
+    // Función para convertir el resultSet a una instancia de la clase Clientes de Java
     protected Clientes resultSetToClientes(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("clienteId");
         String nombre = resultSet.getString("nombre");
@@ -122,6 +124,8 @@ public class ClientController {
         return new Clientes(id, nombre, telefono);
     }
 
+    // Función para convertir una lista de objetos provenientes de la base de datos a instancias
+    // de clase cliente de Java
     protected List<Clientes> resultSetToList(ResultSet resultSet, List<Clientes> clientes) throws SQLException {
         if (resultSet != null) {
             while (resultSet.next()) {
@@ -131,6 +135,7 @@ public class ClientController {
         return clientes;
     }
 
+    // Imprime la lista de clientes
     private void printClientesRS(List<Clientes> clientes) {
         for (Clientes c : clientes) {
             System.out.println("Id: " + c.getClienteId()
