@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <style>
   :root {
     --tb-ft-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -44,29 +47,21 @@
     border: 1px solid;
   }
 
-  #btn-edit {
-    border-color: hsl(202, 80%, 30%);
-    color: hsl(202, 80%, 30%);
-    background-color:hsl(202, 100%, 79%);
-
-  }
-
-  #btn-remove {
-    border-color: #8a0f0f;
-    background-color: hsl(0, 80%, 80%);
-    color: #8a0f0f;
-  }
-
   #btn-submit {
     border-color: hsl(281, 72%, 46%);
     background-color: hsl(281, 72%, 86%);
     color: hsl(281, 72%, 46%);
   }
+  #btn-remove {
+      border-color: #8a0f0f;
+      background-color: hsl(0, 80%, 80%);
+      color: #8a0f0f;
+  }
 
   .input-text {
     border: solid 1px;
     margin-top: 0.3rem;
-    margin-left: 0.3rem;
+    margin-left: 9rem;
     border-radius: 5px;
     height: 1.5rem;
     text-indent: 0.5rem;
@@ -78,14 +73,14 @@
 
   #title-page{
     font-weight: bold;
-    margin-left: 3.3rem;
+    margin-left: 11rem;
     color: #BE4B4B;
     font-size: 1.2em;
   }
 
   #container {
     background-color: white;
-    width: 38%;
+    width: 48%;
     height: 100%;
     border-radius: 10px;
     font-family: var(--tb-ft-family);
@@ -95,8 +90,6 @@
   }
 </style>
 
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -105,28 +98,54 @@
   <title>Proveedores</title>
 </head>
 <body>
-  <main>
-    <div id="container">
-      <span id="title-page">Administrador de Proveedores</span>
-      <div id="form-container">
-        <input class="input-text" placeholder="Nombre" type="text"/>
-        <button class="btn" id="btn-submit" type="submit">Agregar</button>
-      </div>
-      <table>
-        <tr>
-          <th class="tb-header">ID</th>
-          <th class="tb-header">Nombre</th>
-          <th class="tb-header" style="text-align:center">Acciones</th>
-        </tr>
-        <tr class="content-body">
-          <td class="td-item">1</td>
-          <td class="td-item">Fabian Vargas</td>
-          <td class="td-item">
-            <button class="btn" id="btn-remove">Borrar</button>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </main>
+    <main>
+        <div id="container">
+            <span id="title-page">Administrador de Proveedores</span>
+            <form:form
+                    modelAttribute="provider"
+                    method="POST"
+                    action="/addProvider"
+                    id="form-container"
+            >
+                <form:input
+                        path="name"
+                        class="input-text"
+                        placeholder="Nombre" />
+                <input
+                        class="btn"
+                        id="btn-submit"
+                        type="submit"
+                        value="Agregar"
+                >
+            </form:form>
+            <table>
+                <thead>
+                <tr>
+                    <th class="tb-header">ID</th>
+                    <th class="tb-header">Nombre</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${providers}" var="p">
+                    <tr class="content-body">
+                        <form:form
+                                modelAttribute="provider"
+                                method="POST"
+                                action="/removeProvider"
+                        >
+                            <td class="td-item">
+                                <form:input path="id" readonly="true" value="${p.id}" style="width: 20px; border: none;"/>
+                            </td>
+                            <td class="td-item">${p.name}</td>
+                            <td>
+                                <input class="btn" id="btn-remove" type="submit" value="Borrar"/>
+                            </td>
+                        </form:form>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
 </html>

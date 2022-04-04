@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <style>
   #container {
     background-color: white;
@@ -110,39 +112,65 @@
   <main>
     <div id="container">
       <span id="title-page">Administrador de Ordenes</span>
-      <div id="form-container">
-        <input class="input-text" placeholder="Nombre" type="text"/>
-        <input class="input-text" placeholder="Fecha" type="text"/>
-        <input class="input-text" placeholder="Platillo" type="text"/>
+      <form:form id="form-container" modelAttribute="order" method="POST" action="/add_order">
 
-        <select id="select">
+        <form:input class="input-text" placeholder="Nombre" type="text" path="name"/>
+        <form:input class="input-text" placeholder="Fecha" type="date" path="date"/>
+
+        <form:select id="select" path="meal">
+          <option value="1" selected>Arroz con pollo</option>
+          <option value="2">Casado</option>
+          <option value="3">Pinto</option>
+        </form:select>
+
+        <form:select id="select" path="payMethod">
           <option value="1" selected>Al Contado</option>
           <option value="2">Tarjeta</option>
-          <option value="3">Simpe Móvil</option>
-        </select>
+          <option value="3">Simpe Movil</option>
+        </form:select>
 
-        <input class="input-text" placeholder="Cantidad" type="text"/>
-        <button class="btn" id="btn-submit" type="submit">Agregar</button>
-      </div>
+        <form:input type="number" id="quantity" name="quantity" min="1" class="input-text" placeholder="Cantidad" path="amount"/>
+        <input class="btn" id="btn-submit" type="submit" value="Agregar"/>
+      </form:form>
       <table>
-        <tr>
-          <th class="tb-header">Cliente</th>
-          <th class="tb-header">Fecha</th>
-          <th class="tb-header">Platillo</th>
-          <th class="tb-header">Metodo de Pago</th>
-          <th class="tb-header">Cantidad</th>
-          <th class="tb-header" style="text-align:center">Acciones</th>
-        </tr>
-        <tr class="content-body">
-          <td class="td-item">Fabian Vargas</td>
-          <td class="td-item">31/03/2022</td>
-          <td class="td-item">Casado</td>
-          <td class="td-item">Tarjeta</td>
-          <td class="td-item">2</td>
-          <td class="td-item">
-            <button class="btn" id="btn-remove">Borrar</button>
-          </td>
-        <tr/>
+        <thead>
+          <tr>
+            <th class="tb-header">ID</th>
+            <th class="tb-header">Nombre</th>
+            <th class="tb-header">Fecha</th>
+            <th class="tb-header">Platillo</th>
+            <th class="tb-header">Metodo de Pago</th>
+            <th class="tb-header">Cantidad</th>
+            <th class="tb-header" style="text-align:center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%--@elvariable id="orders" type="java.util.List"--%>
+          <c:forEach items="${orders}" var="ord">
+            <tr>
+              <%--@elvariable id="order" type="Order"--%>
+              <form:form
+                      modelAttribute="order"
+                      method="POST"
+                      action="/remove_order"
+              >
+                <td class="td-item">
+                  <form:input path="id" readonly="true" value="${ord.id}" style="width: 20px; border: none;"/>
+                </td>
+
+                <td class="td-item">${ord.name}</td>
+                <td class="td-item">${ord.date}</td>
+                <td class="td-item">${ord.meal}</td>
+                <td class="td-item">${ord.payMethod}</td>
+                <td class="td-item" style="text-align: center;">${ord.amount}</td>
+                <td class="td-item" style="text-align:center">
+                  <input class="btn" id="btn-remove" type="submit" value="Borrar"/>
+                </td>
+              </form:form>
+
+            </tr>
+          </c:forEach>
+        </tbody>
       </table>
     </div>
   </main>

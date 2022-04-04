@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <style>
   :root {
     --tb-ft-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -55,23 +58,10 @@
     border: 1px solid;
   }
 
-  #btn-edit {
-    border-color: hsl(202, 80%, 30%);
-    color: hsl(202, 80%, 30%);
-    background-color:hsl(202, 100%, 79%);
-
-  }
-
   #btn-remove {
     border-color: #8a0f0f;
     background-color: hsl(0, 80%, 80%);
     color: #8a0f0f;
-  }
-
-  #btn-dir {
-    border-color: hsl(135, 52%, 29%);
-    background-color: hsl(135, 52%, 85%);
-    color: hsl(135, 52%, 29%);
   }
 
   #btn-submit {
@@ -83,19 +73,19 @@
   .input-text {
     border: solid 1px;
     margin-top: 0.3rem;
-    margin-left: 0.3rem;
+    margin-left: 1rem;
     border-radius: 5px;
     height: 1.5rem;
     text-indent: 0.5rem;
   }
 
   #form-container {
-    padding: 1rem 3rem 1.5rem;
+    padding: 1rem 3rem 1.5rem 5rem;
   }
 
   #title-page{
     font-weight: bold;
-    margin-left: 3.3rem;
+    margin-left: 6rem;
     color: #BE4B4B;
     font-size: 1.2em;
   }
@@ -112,30 +102,50 @@
 <body>
   <main>
     <div id="crud-container">
-      <span id="title-page">Administrador de clientes</span>
-      <div id="form-container">
-        <input class="input-text" placeholder="Nombre" type="text"/>
-        <input class="input-text" placeholder="Telefono" type="text"/>
-        <input class="input-text" placeholder="Direccion" type="text"/>
-        <button class="btn" id="btn-submit" type="submit">Agregar</button>
-      </div>
+      <span id="title-page">Administrador Cliente</span>
+        
+      <%--@elvariable id="client" type="Client"--%>
+      <form:form id="form-container" modelAttribute="client" method="POST" action="/add_client">
+        <form:input path="name" class="input-text" placeholder="Nombre" type="text"/>
+        <form:input path="phone" class="input-text" placeholder="Telefono" type="text"/>
+        <form:input path="address" class="input-text" placeholder="Direccion" type="text"/>
+            <input class="btn" id="btn-submit" type="submit" value="Agregar"/>
+      </form:form>
+        
       <table>
-        <tr>
-          <th class="tb-header">Nombre</th>
-          <th class="tb-header">Telefono</th>
-          <th class="tb-header">Direcciones</th>
-          <th class="tb-header" style="text-align:center">Acciones</th>
-        </tr>
-        <tr class="content-body">
-          <td class="td-item">Fabian Vargas</td>
-          <td class="td-item">85859875</td>
-          <td class="td-item">Buenos Aires, Costa Rica</td>
-          <td class="td-item">
-            <button class="btn" id="btn-edit">Editar</button>
-            <button class="btn" id="btn-dir">Direccion</button>
-            <button class="btn" id="btn-remove">Borrar</button>
-          </td>
-        </tr>
+        <thead>
+          <tr>
+            <th class="tb-header">ID</th>
+            <th class="tb-header">Nombre</th>
+            <th class="tb-header">Telefono</th>
+            <th class="tb-header">Direccion</th>
+            <th class="tb-header" style="text-align:center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%--@elvariable id="clients" type="java.util.List"--%>
+          <c:forEach items="${clients}" var="cl">
+            <%--@elvariable id="client" type="com.project.restaurant.models.Client"--%>
+            <form:form
+                    modelAttribute="client"
+                    method="POST"
+                    action="/remove_client"
+                    style="padding-left: 2rem;"
+            >
+                <tr class="content-body">
+                    <td class="id-item">
+                      <form:input path="id" readonly="true" value="${cl.id}" style="width: 20px; border: none;"/>
+                    </td>
+                    <td class="td-item">${cl.name}</td>
+                    <td class="td-item">${cl.phone}</td>
+                    <td class="td-item">${cl.address}</td>
+                    <td class="td-item">
+                        <input class="btn" id="btn-remove" type="submit" value="Borrar"/>
+                    </td>
+               </tr>
+            </form:form>
+          </c:forEach>
+        </tbody>
       </table>
     </div>
   </main>
