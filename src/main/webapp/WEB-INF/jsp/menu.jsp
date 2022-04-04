@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
   * {
     margin: 0;
@@ -23,7 +24,6 @@
     border-radius: 10px;
     font-family: var(--tb-ft-family);
     background-color: #030202;
-
   }
 
   .item {
@@ -36,18 +36,13 @@
   }
 
   .recipe-detail {
+    margin-top: 1rem;
     text-align: left;
     font-size: 24px;
   }
 
   .recipe-title {
     font-weight: bold;
-
-  }
-
-  .recipe-title::after {
-    margin-left: 10rem;
-    content: "5000";
   }
 
   .recipe-text {
@@ -63,13 +58,21 @@
     list-style: none;
   }
 
+  .img {
+    width: 20rem;
+    height: 12rem;
+    margin: auto;
+  }
+
   #img-2 {
     position: relative;
     right: 6px;
 
     margin-top: 2.3rem;
   }
-
+  .space {
+    padding-right: 9rem;
+  }
 </style>
 
 <!DOCTYPE html>
@@ -85,54 +88,37 @@
   <main id="menu-container">
     <img class="img" src="assets/menu_name.png" alt="menu name"/>
     <img class="img" src="assets/menu_img.png" alt="menu food"/>
+
     <div class="item">
       <span class="section-title">Principales</span>
-      <div class="recipe-detail">
-        <span class="recipe-title">Ensalada Griega</span>
-        <span class="recipe-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, nam.</span>
-      </div>
-      <div class="recipe-detail">
-        <span class="recipe-title">Ensalada Griega</span>
-        <span class="recipe-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, nam.</span>
-      </div>
-      <div class="recipe-detail">
-        <span class="recipe-title">Ensalada Griega</span>
-        <span class="recipe-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, nam.</span>
-      </div>
-      <div class="recipe-detail">
-        <span class="recipe-title">Ensalada Griega</span>
-        <span class="recipe-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, nam.</span>
-      </div>
+      <%--@elvariable id="menu" type="java.util.List"--%>
+      <c:forEach items="${menu.mains}" var="m">
+        <div class="recipe-detail">
+          <span class="recipe-title space">${m.title}</span>
+          <span class="recipe-title">${m.price}</span>
+          <span class="recipe-text">${m.detail}</span>
+        </div>
+      </c:forEach>
     </div>
+
     <div class="item">
       <span class="section-title">Especiales</span>
-      <div class="recipe-detail">
-        <span class="recipe-title">Ensalada Griega</span>
-        <span class="recipe-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, nam.</span>
-      </div>
-      <div class="recipe-detail">
-        <span class="recipe-title">Ensalada Griega</span>
-        <span class="recipe-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, nam.</span>
-      </div>
-      <div class="recipe-detail">
-        <span class="recipe-title">Ensalada Griega</span>
-        <span class="recipe-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, nam.</span>
-      </div>
-      <div class="recipe-detail">
-        <span class="recipe-title">Ensalada Griega</span>
-        <span class="recipe-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, nam.</span>
-      </div>
+        <%--@elvariable id="menu" type="java.util.List"--%>
+        <c:forEach items="${menu.specials}" var="e">
+          <div class="recipe-detail">
+            <span class="recipe-title space">${e.title}</span>
+            <span class="recipe-title">${e.price}</span>
+            <span class="recipe-text">${e.detail}</span>
+          </div>
+        </c:forEach>
     </div>
+
     <div class="item">
       <span class="section-title">Postres</span>
       <ul>
-        <li class="recipe-list"><span>Papas Fritas ...................................... 5000</span></li>
-        <li class="recipe-list"><span>Papas a la Pimienta ......................... 5000</span></li>
-        <li class="recipe-list"><span>Casado ............................................... 5000</span></li>
-        <li class="recipe-list"><span>Porcion de Pollo ................................ 5000</span></li>
-        <li class="recipe-list"><span>Gallopinto .......................................... 5000</span></li>
-        <li class="recipe-list"><span>Empanada ......................................... 5000</span></li>
-        <li class="recipe-list"><span>Ensalada Verde ................................. 5000</span></li>
+        <c:forEach items="${menu.desserts}" var="p">
+          <li class="recipe-list"><span> ${p.title} ${p.price}</span></li>
+        </c:forEach>
       </ul>
     </div>
     <div id="img-2" class="item">
@@ -141,25 +127,17 @@
     <div class="item">
       <span class="section-title">Bebidas</span>
       <ul>
-        <li class="recipe-list"><span>Papas Fritas ...................................... 5000</span></li>
-        <li class="recipe-list"><span>Papas a la Pimienta ......................... 5000</span></li>
-        <li class="recipe-list"><span>Casado ............................................... 5000</span></li>
-        <li class="recipe-list"><span>Porcion de Pollo ................................ 5000</span></li>
-        <li class="recipe-list"><span>Gallopinto .......................................... 5000</span></li>
-        <li class="recipe-list"><span>Empanada ......................................... 5000</span></li>
-        <li class="recipe-list"><span>Ensalada Verde ................................. 5000</span></li>
+        <c:forEach items="${menu.drinks}" var="b">
+          <li class="recipe-list"><span> ${b.title} ${b.price}</span></li>
+        </c:forEach>
       </ul>
     </div>
     <div class="item">
       <span class="section-title">Acompanamientos</span>
       <ul>
-        <li class="recipe-list"><span>Papas Fritas ...................................... 5000</span></li>
-        <li class="recipe-list"><span>Papas a la Pimienta ......................... 5000</span></li>
-        <li class="recipe-list"><span>Casado ............................................... 5000</span></li>
-        <li class="recipe-list"><span>Porcion de Pollo ................................ 5000</span></li>
-        <li class="recipe-list"><span>Gallopinto .......................................... 5000</span></li>
-        <li class="recipe-list"><span>Empanada ......................................... 5000</span></li>
-        <li class="recipe-list"><span>Ensalada Verde ................................. 5000</span></li>
+        <c:forEach items="${menu.sides}" var="s">
+          <li class="recipe-list"><span> ${s.title} ${s.price}</span></li>
+        </c:forEach>
       </ul>
     </div>
   </main>
