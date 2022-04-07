@@ -112,21 +112,25 @@
   <main>
     <div id="container">
       <span id="title-page">Administrador de Ordenes</span>
-      <form:form id="form-container" modelAttribute="order" method="POST" action="/add_order">
-
-        <form:input class="input-text" placeholder="Nombre" type="text" path="name"/>
-        <form:input class="input-text" placeholder="Fecha" type="date" path="date"/>
-
-        <form:select id="select" path="meal">
-          <option value="1" selected>Arroz con pollo</option>
-          <option value="2">Casado</option>
-          <option value="3">Pinto</option>
+      <form:form id="form-container" modelAttribute="inOrder" method="POST" action="/add_order">
+        <form:select id="select" path="clientId">
+          <c:forEach items="${orders.clients}" var="b">
+            <option value="${b.id}">${b.name}</option>
+          </c:forEach>
         </form:select>
 
-        <form:select id="select" path="payMethod">
-          <option value="1" selected>Al Contado</option>
-          <option value="2">Tarjeta</option>
-          <option value="3">Simpe Movil</option>
+        <form:input class="input-text" placeholder="Fecha" type="date" path="date"/>
+
+        <form:select id="select" path="mealId">
+          <c:forEach items="${orders.meals}" var="ip">
+            <option value="${ip.id}">${ip.title}</option>
+          </c:forEach>
+        </form:select>
+
+        <form:select id="select" path="payMethodId">
+          <c:forEach items="${orders.methods}" var="a">
+            <option value="${a.id}">${a.name}</option>
+          </c:forEach>
         </form:select>
 
         <form:input type="number" id="quantity" name="quantity" min="1" class="input-text" placeholder="Cantidad" path="amount"/>
@@ -146,11 +150,11 @@
         </thead>
         <tbody>
           <%--@elvariable id="orders" type="java.util.List"--%>
-          <c:forEach items="${orders}" var="ord">
+          <c:forEach items="${orders.orders}" var="ord">
             <tr>
               <%--@elvariable id="order" type="Order"--%>
               <form:form
-                      modelAttribute="order"
+                      modelAttribute="OutOrder"
                       method="POST"
                       action="/remove_order"
               >

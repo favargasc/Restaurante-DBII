@@ -17,6 +17,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 0.4fr 1.5fr 0.8fr 1fr;
+    grid-gap: 2rem;
     justify-content: center;
     width: 65%;
     padding: 3rem 3rem;
@@ -70,9 +71,17 @@
 
     margin-top: 2.3rem;
   }
-  .space {
-    padding-right: 9rem;
+
+  .a {
+    position: absolute;
+    left: 580px;
   }
+
+  .b {
+    position: absolute;
+    left: 950px;
+  }
+
 </style>
 
 <!DOCTYPE html>
@@ -94,9 +103,9 @@
       <%--@elvariable id="menu" type="java.util.List"--%>
       <c:forEach items="${menu.mains}" var="m">
         <div class="recipe-detail">
-          <span class="recipe-title space">${m.title}</span>
-          <span class="recipe-title">${m.price}</span>
-          <span class="recipe-text">${m.detail}</span>
+          <span class="recipe-title indent">${m.title}</span>
+          <span class="recipe-title a">${m.price}</span>
+          <span class="recipe-text"><br>${m.detail}</span>
         </div>
       </c:forEach>
     </div>
@@ -106,9 +115,9 @@
         <%--@elvariable id="menu" type="java.util.List"--%>
         <c:forEach items="${menu.specials}" var="e">
           <div class="recipe-detail">
-            <span class="recipe-title space">${e.title}</span>
-            <span class="recipe-title">${e.price}</span>
-            <span class="recipe-text">${e.detail}</span>
+            <span class="recipe-title">${e.title}</span>
+            <span class="recipe-title b">${e.price}</span>
+            <span class="recipe-text"><br>${e.detail}</span>
           </div>
         </c:forEach>
     </div>
@@ -117,7 +126,7 @@
       <span class="section-title">Postres</span>
       <ul>
         <c:forEach items="${menu.desserts}" var="p">
-          <li class="recipe-list"><span> ${p.title} ${p.price}</span></li>
+          <li class="recipe-list"><span> ${p.title}</span> <span class="a">${p.price}</span></li>
         </c:forEach>
       </ul>
     </div>
@@ -128,15 +137,15 @@
       <span class="section-title">Bebidas</span>
       <ul>
         <c:forEach items="${menu.drinks}" var="b">
-          <li class="recipe-list"><span> ${b.title} ${b.price}</span></li>
+          <li class="recipe-list"><span> ${b.title}</span> <span class="a">${b.price}</span></li>
         </c:forEach>
       </ul>
     </div>
     <div class="item">
-      <span class="section-title">Acompanamientos</span>
+      <span class="section-title">Snaks</span>
       <ul>
-        <c:forEach items="${menu.sides}" var="s">
-          <li class="recipe-list"><span> ${s.title} ${s.price}</span></li>
+        <c:forEach items="${menu.snacks}" var="s">
+          <li class="recipe-list"><span> ${s.title}</span> <span class="b">${s.price}</span></li>
         </c:forEach>
       </ul>
     </div>

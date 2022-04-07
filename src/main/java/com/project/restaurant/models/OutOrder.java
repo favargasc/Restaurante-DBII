@@ -1,13 +1,11 @@
 package com.project.restaurant.models;
 
-import java.util.Date;
-
-public class Order {
+public class OutOrder {
     Integer id, amount;
     private String name, meal, payMethod;
     private String date;
 
-    public Order(Integer id, String name, String meal, String payMethod, String date, Integer amount) {
+    public OutOrder(Integer id, String name, String meal, String payMethod, String date, Integer amount) {
         this.id = id;
         this.name = name;
         this.meal = meal;
@@ -16,10 +14,9 @@ public class Order {
         this.amount = amount;
     }
 
-    public Order() {
+    public OutOrder() {
 
     }
-
 
     public Integer getId() {
         return id;

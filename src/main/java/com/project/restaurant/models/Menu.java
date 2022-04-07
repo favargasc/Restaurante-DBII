@@ -1,26 +1,28 @@
 package com.project.restaurant.models;
 
 
-public class Menu {
-    Recipe[] mains;
-    Recipe[] specials;
-    Recipe[] desserts;
-    Recipe[] drinks;
-    Recipe[] sides;
+import java.util.ArrayList;
 
-    public Menu(Recipe[] mains, Recipe[] specials, Recipe[] desserts, Recipe[] drinks, Recipe[] sides) {
+public class Menu {
+    ArrayList<Recipe> mains;
+    Recipe[] specials;
+    ArrayList<Recipe> desserts;
+    ArrayList<Recipe> drinks;
+    ArrayList<Recipe> snacks;
+
+    public Menu(ArrayList<Recipe> mains, Recipe[] specials, ArrayList<Recipe> desserts, ArrayList<Recipe> drinks, ArrayList<Recipe> snacks) {
         this.mains = mains;
         this.specials = specials;
         this.desserts = desserts;
         this.drinks = drinks;
-        this.sides = sides;
+        this.snacks = snacks;
     }
 
-    public Recipe[] getMains() {
+    public ArrayList<Recipe> getMains() {
         return mains;
     }
 
-    public void setMains(Recipe[] mains) {
+    public void setMains(ArrayList<Recipe> mains) {
         this.mains = mains;
     }
 
@@ -32,27 +34,27 @@ public class Menu {
         this.specials = specials;
     }
 
-    public Recipe[] getDesserts() {
+    public ArrayList<Recipe> getDesserts() {
         return desserts;
     }
 
-    public void setDesserts(Recipe[] desserts) {
+    public void setDesserts(ArrayList<Recipe> desserts) {
         this.desserts = desserts;
     }
 
-    public Recipe[] getDrinks() {
+    public ArrayList<Recipe> getDrinks() {
         return drinks;
     }
 
-    public void setDrinks(Recipe[] drinks) {
+    public void setDrinks(ArrayList<Recipe> drinks) {
         this.drinks = drinks;
     }
 
-    public Recipe[] getSides() {
-        return sides;
+    public ArrayList<Recipe> getSnacks() {
+        return snacks;
     }
 
-    public void setSides(Recipe[] sides) {
-        this.sides = sides;
+    public void setSnacks(ArrayList<Recipe>  snacks) {
+        this.snacks = snacks;
     }
 }

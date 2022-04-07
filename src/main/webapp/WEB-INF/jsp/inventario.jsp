@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="select" uri="http://www.springframework.org/tags/form" %>
 <style>
   :root {
     --tb-ft-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -49,6 +52,15 @@
     color: hsl(202, 80%, 30%);
     background-color:hsl(202, 100%, 79%);
 
+  }
+
+  .input-text {
+    border: solid 1px;
+    margin-top: 0.3rem;
+    margin-left: 0.3rem;
+    border-radius: 5px;
+    height: 1.5rem;
+    text-indent: 0.5rem;
   }
 
   #btn-remove {
@@ -117,45 +129,59 @@
   <main>
     <div id="container">
       <span id="title-page">Administrador de Inventario</span>
-      <form id="form-container">
-        <input class="input" placeholder="Nombre" type="text"/>
+      <form:form id="form-container" modelAttribute="inInventory" method="POST" action="/add_inventory">
+        <form:input class="input" placeholder="Nombre" type="text" path="name"/>
 
-        <select class="select">
-          <option value="1" selected>Del Valle</option>
-          <option value="2">Bimbo</option>
-          <option value="3">Dos Pinos</option>
-          <option value="4">hellmann's</option>
-        </select>
-        
-        <select class="select">
-          <option value="1" selected>Unidades</option>
-          <option value="2">Kilogramos</option>
-          <option value="3">Gramos</option>
-          <option value="4">Onzas</option>
-        </select>
-        
-        <input class="input" placeholder="Cantidad" type="text"/>
-        <button class="btn" id="btn-submit" type="submit">Agregar</button>
-    </form>
+        <form:select class="select" path="providerId">
+          <c:forEach items="${inventoryDAO.providers}" var="ip">
+            <option value="${ip.id}">${ip.name}</option>
+          </c:forEach>
+        </form:select>
+
+        <form:select class="select" path="unitId">
+          <c:forEach items="${inventoryDAO.units}" var="im">
+            <option value="${im.id}">${im.name}</option>
+          </c:forEach>
+        </form:select>
+
+        <form:input type="number" id="quantity" name="quantity" min="1" class="input-text" placeholder="Cantidad" path="amount"/>
+        <input class="btn" id="btn-submit" type="submit" value="Agregar"/>
+    </form:form>
       <table>
-        <tr>
-          <th class="tb-header">ID</th>
-          <th class="tb-header">Nombre</th>
-          <th class="tb-header">Proveedor</th>
-          <th class="tb-header">Cantidad</th>
-          <th class="tb-header">Medida</th>
-          <th class="tb-header" style="text-align:center">Acciones</th>
-        </tr>
-        <tr class="content-body">
-          <td class="td-item">1</td>
-          <td class="td-item">Aguacate</td>
-          <td class="td-item">Del Valle</td>
-          <td class="td-item">20</td>
-          <td class="td-item">Unidades</td>
-          <td class="td-item">
-            <button class="btn" id="btn-remove">Borrar</button>
-          </td>
-        </tr>
+        <thead>
+          <tr>
+            <th class="tb-header">ID</th>
+            <th class="tb-header">Nombre</th>
+            <th class="tb-header">Proveedor</th>
+            <th class="tb-header">Cantidad</th>
+            <th class="tb-header">Medida</th>
+            <th class="tb-header" style="text-align:center">Acciones</th>
+          </tr>
+        </thead>
+          <tbody>
+            <%--@elvariable id="inventoryDAO" type="com.project.restaurant.models.InventoryDAO"--%>
+            <c:forEach items="${inventoryDAO.inventories}" var="inv">
+              <tr>
+                  <%--@elvariable id="order" type="Order"--%>
+                <form:form
+                        modelAttribute="outInventory"
+                        method="POST"
+                        action="/remove_inventory"
+                >
+                  <td class="td-item">
+                    <form:input path="id" readonly="true" value="${inv.id}" style="width: 20px; border: none;"/>
+                  </td>
+                  <td class="td-item">${inv.name}</td>
+                  <td class="td-item">${inv.provider}</td>
+                  <td class="td-item" style="text-align: center;">${inv.amount}</td>
+                  <td class="td-item">${inv.unit}</td>
+                  <td class="td-item" style="text-align:center">
+                    <input class="btn" id="btn-remove" type="submit" value="Borrar"/>
+                  </td>
+                </form:form>
+              </tr>
+            </c:forEach>
+          </tbody>
       </table>
     </div>
   </main>

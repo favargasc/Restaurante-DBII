@@ -126,6 +126,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                <%--@elvariable id="providers" type="java.util.List"--%>
                 <c:forEach items="${providers}" var="p">
                     <tr class="content-body">
                         <form:form
