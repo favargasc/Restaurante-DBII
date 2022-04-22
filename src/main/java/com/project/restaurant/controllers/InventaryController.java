@@ -15,8 +15,8 @@ public class InventaryController {
     }
 
     public ArrayList<OutInventory> getInventory() {
-        String query =  "SELECT i.\"Id\" as Id, i.NOMBRE AS Nombre, p.NOMBRE AS Proveedor, u.NOMBRE AS Unidad, i.CANTIDAD AS Cantidad FROM INVENTARIO i " +
-                        "INNER JOIN PROVEEDORES p ON p.ID = i.\"Id\" " +
+        String query =  "SELECT i.ID as Id, i.NOMBRE AS Nombre, p.NOMBRE AS Proveedor, u.NOMBRE AS Unidad, i.CANTIDAD AS Cantidad FROM INVENTARIO i " +
+                        "INNER JOIN PROVEEDORES p ON p.ID = i.ID " +
                         "INNER JOIN UNIDADESMEDIDAS u on i.UNIDAD_ID = u.ID";
 
         ArrayList<OutInventory> inventory = new ArrayList<>();
@@ -66,7 +66,7 @@ public class InventaryController {
     }
 
     public void removeClient(OutInventory inventory) {
-        String query = "DELETE FROM INVENTARIO WHERE  \"Id\" = ?";
+        String query = "DELETE FROM INVENTARIO WHERE ID = ?";
 
         try {
             Connection connection = dbConnection.getConnection();

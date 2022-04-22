@@ -21,7 +21,6 @@ public class ProvidersPresenter {
     public ModelAndView showProviders() {
 
         ArrayList<Provider> providers =  providersController.getProviders();
-
         return new ModelAndView("proveedores", "providers", providers);
     }
 

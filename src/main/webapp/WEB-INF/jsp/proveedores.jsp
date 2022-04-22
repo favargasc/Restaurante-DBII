@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <style>
   :root {
     --tb-ft-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -73,7 +75,7 @@
   }
 
   #form-container {
-    padding: 1rem 3rem 1.5rem;
+    padding: 1rem 4rem 1.5rem;
   }
 
   #title-page{
@@ -93,6 +95,12 @@
     padding-bottom: 3rem;
     margin: 5rem auto 4rem;
   }
+
+  #btn-remove {
+    border-color: #8a0f0f;
+    background-color: hsl(0, 80%, 80%);
+    color: #8a0f0f;
+  }
 </style>
 
 
@@ -107,24 +115,42 @@
 <body>
   <main>
     <div id="container">
-      <span id="title-page">Administrador de Proveedores</span>
-      <div id="form-container">
-        <input class="input-text" placeholder="Nombre" type="text"/>
-        <button class="btn" id="btn-submit" type="submit">Agregar</button>
-      </div>
+    <span id="title-page">Administrador de Proveedores</span>
+      <form:form id="form-container" modelAttribute="provider" method="POST" action="/addProvider">
+        <form:input path="name" class="input-text" placeholder="Nombre" type="text"/>
+        <input class="btn" id="btn-submit" type="submit" value="Agregar"/>
+      </form:form>
       <table>
-        <tr>
-          <th class="tb-header">ID</th>
-          <th class="tb-header">Nombre</th>
-          <th class="tb-header" style="text-align:center">Acciones</th>
-        </tr>
-        <tr class="content-body">
-          <td class="td-item">1</td>
-          <td class="td-item">Fabian Vargas</td>
-          <td class="td-item">
-            <button class="btn" id="btn-remove">Borrar</button>
-          </td>
-        </tr>
+        <thead>
+          <tr>
+            <th class="tb-header">ID</th>
+            <th class="tb-header">Nombre</th>
+            <th class="tb-header" style="text-align:center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        <%--@elvariable id="providers" type="java.util.List"--%>
+        <c:forEach items="${providers}" var="p">
+
+          <form:form
+                  modelAttribute="provider"
+                  method="POST"
+                  action="/removeProvider"
+                  style="padding-left: 2rem;"
+          >
+            <tr class="content-body">
+              <td class="id-item">
+                <form:input path="id" readonly="true" value="${p.id}" style="width: 20px; border: none;"/>
+              </td>
+              <td class="td-item">${p.name}</td>
+              <td class="td-item">
+                <input class="btn" id="btn-remove" type="submit" value="Borrar"/>
+              </td>
+            </tr>
+          </form:form>
+        </c:forEach>
+        </tbody>
       </table>
     </div>
   </main>

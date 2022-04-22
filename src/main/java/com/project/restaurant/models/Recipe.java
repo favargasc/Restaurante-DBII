@@ -4,20 +4,16 @@ public class Recipe {
     String title;
     Double price;
     String detail;
-<<<<<<< HEAD
     Integer id;
-=======
->>>>>>> origin/master
 
-    public Recipe(String title, Double price, String detail) {
+    public Recipe(Integer id, String title, Double price, String detail) {
+        this.id = id;
         this.title = title;
         this.price = price;
         this.detail = detail;
     }
 
-<<<<<<< HEAD
-    public Recipe(Integer id, String title, Double price, String detail) {
-        this.id = id;
+    public Recipe(String title, Double price, String detail) {
         this.title = title;
         this.price = price;
         this.detail = detail;
@@ -28,8 +24,6 @@ public class Recipe {
         this.price = price;
     }
 
-=======
->>>>>>> origin/master
     public String getTitle() {
         return title;
     }
@@ -53,7 +47,6 @@ public class Recipe {
     public void setDetail(String detail) {
         this.detail = detail;
     }
-<<<<<<< HEAD
 
     public Integer getId() {
         return id;
@@ -62,6 +55,4 @@ public class Recipe {
     public void setId(Integer id) {
         this.id = id;
     }
-=======
->>>>>>> origin/master
 }

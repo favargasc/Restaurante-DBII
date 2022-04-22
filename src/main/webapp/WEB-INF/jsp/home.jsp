@@ -123,10 +123,10 @@
     <header>
       <nav id="home-navigation">
         <a href="menu">Menu</a>
-        <a href="clientes">Clientes</a>
-        <a href="ordenes">Ordenes</a>
-        <a href="inventario">Inventario</a>
-        <a href="proveedores">Proveedores</a>
+        <a href="clients">Clientes</a>
+        <a href="orders">Ordenes</a>
+        <a href="inventories">Inventario</a>
+        <a href="providers">Proveedores</a>
       </nav>
     </header>
 
